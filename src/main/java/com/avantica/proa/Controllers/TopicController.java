@@ -1,7 +1,7 @@
 package com.avantica.proa.Controllers;
 
 import com.avantica.proa.Models.Topic;
-import com.avantica.proa.Services.TopicService;
+import com.avantica.proa.Services.ITopicService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class TopicController {
-    private final TopicService topicService;
+    private final ITopicService topicService;
 
-    public TopicController(TopicService topicService) {
+    public TopicController(ITopicService topicService) {
         this.topicService = topicService;
     }
 
