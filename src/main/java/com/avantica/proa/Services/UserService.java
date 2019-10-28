@@ -10,4 +10,5 @@ public interface UserService {
     User findById(long id) throws Exception;
     User update(User user);
     void delete(long id) throws Exception;
+    User findByEmail(User user);
 }

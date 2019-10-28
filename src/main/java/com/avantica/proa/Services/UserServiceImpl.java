@@ -2,6 +2,7 @@ package com.avantica.proa.Services;
 
 import com.avantica.proa.Models.User;
 import com.avantica.proa.Repositories.UserRepository;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(long id) throws Exception{
         UserRepository.deleteById(id);
+    }
+
+    @Override
+    public User findByEmail(User user){
+        Example<User> example = Example.of(user);
+        return UserRepository.findAll(example).get(0);
     }
 }
