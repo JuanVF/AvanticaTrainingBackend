@@ -1,7 +1,7 @@
 package com.avantica.proa.Controllers;
 
 import com.avantica.proa.Models.Resource;
-import com.avantica.proa.Services.IResourceService;
+import com.avantica.proa.Services.ResourceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class ResourceController {
-    private final IResourceService resourceService;
+    private final ResourceService resourceService;
 
-    public ResourceController(IResourceService resourceService) {
+    public ResourceController(ResourceService resourceService) {
         this.resourceService = resourceService;
     }
 

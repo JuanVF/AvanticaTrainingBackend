@@ -15,6 +15,7 @@ public class Resource {
     @Column
     private String url;
 
+    @ManyToOne
     @JoinColumn(name="topic_id")
     private Topic topic;
 
