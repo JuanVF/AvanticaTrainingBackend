@@ -1,33 +1,25 @@
 package com.avantica.proa.Controllers;
 import com.avantica.proa.Models.User;
-import com.avantica.proa.Services.UserServiceImpl;
+import com.avantica.proa.Services.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin
+@Controller
 public class UserController {
-    private final UserServiceImpl userServiceImpl;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserServiceImpl userServiceImpl,
-                          BCryptPasswordEncoder bCryptPasswordEncoder){
-        this.userServiceImpl = userServiceImpl;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    @PostMapping("/users")
-    public void save(@RequestBody User user){
+    @PostMapping("/signup")
+    ResponseEntity<User> save(@RequestBody User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-    }
-
-    @GetMapping("/users/${email}")
-    public User findByEmail(@PathVariable String email){
-        User user = new User();
-        user.setEmail(email);
-        return userServiceImpl.findByEmail(user);
+        return ResponseEntity.ok().body(userDetailsServiceImpl.save(user));
     }
 }

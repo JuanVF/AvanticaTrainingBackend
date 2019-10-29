@@ -2,17 +2,15 @@ package com.avantica.proa.Services;
 
 import com.avantica.proa.Models.Topic;
 import com.avantica.proa.Repositories.TopicRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class TopicServiceImpl implements TopicService {
+    @Autowired
     private TopicRepository topicRepository;
-
-    public TopicServiceImpl(TopicRepository topicRepository) {
-        this.topicRepository = topicRepository;
-    }
 
     @Override
     public Topic save(Topic topic){

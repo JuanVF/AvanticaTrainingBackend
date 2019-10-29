@@ -2,6 +2,7 @@ package com.avantica.proa.Controllers;
 
 import com.avantica.proa.Models.Resource;
 import com.avantica.proa.Services.ResourceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +11,8 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class ResourceController {
-    private final ResourceService resourceService;
-
-    public ResourceController(ResourceService resourceService) {
-        this.resourceService = resourceService;
-    }
+    @Autowired
+    private ResourceService resourceService;
 
     @GetMapping("/resource")
     public ResponseEntity<List<Resource>> findAll(){

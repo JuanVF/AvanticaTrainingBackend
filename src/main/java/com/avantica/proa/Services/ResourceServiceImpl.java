@@ -2,17 +2,15 @@ package com.avantica.proa.Services;
 
 import com.avantica.proa.Models.Resource;
 import com.avantica.proa.Repositories.ResourceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ResourceServiceImpl implements ResourceService {
+    @Autowired
     private ResourceRepository resourceRepository;
-
-    public ResourceServiceImpl(ResourceRepository resourceRepository) {
-        this.resourceRepository = resourceRepository;
-    }
 
     @Override
     public Resource save(Resource resource){

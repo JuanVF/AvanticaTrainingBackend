@@ -2,6 +2,7 @@ package com.avantica.proa.Controllers;
 
 import com.avantica.proa.Models.Topic;
 import com.avantica.proa.Services.TopicServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +11,8 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class TopicController {
-    private final TopicServiceImpl topicServiceImpl;
-
-    public TopicController(TopicServiceImpl topicServiceImpl) {
-        this.topicServiceImpl = topicServiceImpl;
-    }
+    @Autowired
+    private  TopicServiceImpl topicServiceImpl;
 
     @GetMapping("/topic")
     public ResponseEntity<List<Topic>> findAll(){

@@ -18,12 +18,16 @@ public class User {
     @Column(name="password",nullable = false)
     private String password;
 
+    @Column(name="role",nullable = false)
+    private byte role;
+
     public User() { }
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, byte role) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public long getId() {
@@ -56,5 +60,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public byte getRole() {
+        return role;
+    }
+
+    public void setRole(byte role) {
+        this.role = role;
     }
 }
