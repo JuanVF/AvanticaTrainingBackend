@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long topic_id;
 
     @Column
     private String name;
@@ -18,12 +18,12 @@ public class Topic {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
+    public long getTopic_id() {
+        return topic_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setTopic_id(long topic_id) {
+        this.topic_id = topic_id;
     }
 
     public String getName() {
