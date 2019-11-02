@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
+import java.io.IOException;
 import java.util.Date;
 
 import static com.avantica.proa.Security.SecurityConstants.*;
@@ -15,13 +16,16 @@ import static java.util.Collections.emptyList;
 
 public class JwtUtil {
 
-    static void addAuthentication(HttpServletResponse res,String email){
+    static void addAuthentication(HttpServletResponse res,String email) throws IOException {
         String token = Jwts.builder()
                 .setSubject(email)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
 
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        res.getWriter().write("{\"" + AUTHORIZATION_HEADER + "\":\"" + TOKEN_PREFIX + token + "\"}");
         res.addHeader(AUTHORIZATION_HEADER, TOKEN_PREFIX + token);
     }
 

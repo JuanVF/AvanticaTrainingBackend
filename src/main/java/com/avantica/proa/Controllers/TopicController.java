@@ -24,6 +24,12 @@ public class TopicController {
         return ResponseEntity.ok().body(topicServiceImpl.findById(id));
     }
 
+    @GetMapping("/topic/top-ten")
+    @ResponseBody
+    public List<> findTopTen(){
+
+    }
+
     @PostMapping("/topic")
     public ResponseEntity<Topic> save(@RequestBody Topic topic){
         return ResponseEntity.ok().body(topicServiceImpl.save(topic));
