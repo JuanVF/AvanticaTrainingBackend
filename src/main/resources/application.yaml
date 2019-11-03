@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/proaa?useSSL=true&useTimezone=true&serverTimezone=UTC
+  http:
+    log-request-details: true
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            clientId: 2627135220683277
+            clientSecret: e26e9038c2cc877f048539d30c062da2
+            redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - public_profile
+          provider:
+            facebook:
+              authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
+                tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
+                userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG

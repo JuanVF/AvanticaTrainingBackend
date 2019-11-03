@@ -1,6 +1,9 @@
 package com.avantica.proa.Models;
 
+import com.avantica.proa.OAuth2.AuthProvider;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="user")
@@ -21,13 +24,23 @@ public class User {
     @Column(name="role",nullable = false)
     private byte role;
 
-    public User() { }
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
 
-    public User(String name, String email, String password, byte role) {
+    private String providerId;
+
+    public User() {
+
+    }
+
+    public User(String name, String email, String password, byte role, @NotNull AuthProvider provider, String providerId) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
     public long getId() {
@@ -68,5 +81,21 @@ public class User {
 
     public void setRole(byte role) {
         this.role = role;
+    }
+
+    public AuthProvider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(AuthProvider provider) {
+        this.provider = provider;
+    }
+
+    public String getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 }

@@ -21,9 +21,6 @@ import java.util.Collections;
 
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     public LoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authManager);
