@@ -1,6 +1,8 @@
 package com.avantica.proa.Controllers;
 
 import com.avantica.proa.Models.Resource;
+import com.avantica.proa.Models.Topic;
+import com.avantica.proa.Repositories.ResourceRepository;
 import com.avantica.proa.Services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,13 @@ public class ResourceController {
     @Autowired
     private ResourceService resourceService;
 
+    @Autowired
+    private ResourceRepository resourceRepository;
+
+    @PostMapping("/resource/relations/")
+    public ResponseEntity<List<Resource>> findByTopicId(@RequestBody Topic topic){
+        return ResponseEntity.ok().body(resourceRepository.findAllByTopic(topic));
+    }
     @GetMapping("/resource")
     public ResponseEntity<List<Resource>> findAll(){
         return ResponseEntity.ok().body(resourceService.findAll());

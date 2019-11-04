@@ -1,6 +1,7 @@
 package com.avantica.proa.Security;
 
 
+import com.avantica.proa.FBTokenUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 
+import static com.avantica.proa.Security.SecurityConstants.FB_USER_TOKEN;
+
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
+    private FBTokenUtils tokenUtils = new FBTokenUtils();
 
     public LoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));
@@ -32,13 +36,31 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         InputStream body = request.getInputStream();
 
         UserModelResponse user = new ObjectMapper().readValue(body,UserModelResponse.class);
+        boolean existsToken = false;
+        try {
+            existsToken = tokenUtils.checkFBToken(user.getFBToken());
 
-        return getAuthenticationManager().authenticate(
+            if(existsToken){
+
+                return getAuthenticationManager().authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 user.getEmail(),
-                                user.getPassword(),
+                                FB_USER_TOKEN,
                                 Collections.emptyList()
                         ));
+            }
+
+            return getAuthenticationManager().authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            user.getEmail(),
+                            user.getPassword(),
+                            Collections.emptyList()
+                    ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override

@@ -18,16 +18,20 @@ public class User {
     @Column(name="password",nullable = false)
     private String password;
 
-    @Column(name="role",nullable = false)
+    @Column(name="role")
     private byte role;
+
+    @Column(name="fb_token")
+    private String fb_token;
 
     public User() { }
 
-    public User(String name, String email, String password, byte role) {
+    public User(String name, String email, String password, byte role, String fb_token) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.fb_token = fb_token;
     }
 
     public long getId() {
@@ -68,5 +72,13 @@ public class User {
 
     public void setRole(byte role) {
         this.role = role;
+    }
+
+    public String getFb_token() {
+        return fb_token;
+    }
+
+    public void setFb_token(String fb_token) {
+        this.fb_token = fb_token;
     }
 }

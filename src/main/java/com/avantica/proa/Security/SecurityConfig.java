@@ -1,5 +1,6 @@
 package com.avantica.proa.Security;
 
+import com.avantica.proa.FBTokenUtils;
 import com.avantica.proa.Services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public FBTokenUtils fbTokenUtils(){
+        return new FBTokenUtils();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
@@ -35,7 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/login").permitAll()
-                .antMatchers("/signup").permitAll()
+                .antMatchers(HttpMethod.POST,"/signup").permitAll()
+                .antMatchers(HttpMethod.POST,"/fb/login").permitAll()
+                .antMatchers(HttpMethod.POST,"/fb/signup").permitAll()
+                .antMatchers(HttpMethod.GET,"/resource").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new LoginFilter("/login",authenticationManager())

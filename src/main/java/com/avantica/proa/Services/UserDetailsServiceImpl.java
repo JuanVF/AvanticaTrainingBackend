@@ -1,6 +1,7 @@
 package com.avantica.proa.Services;
 
 
+import com.avantica.proa.FBTokenUtils;
 import com.avantica.proa.Models.User;
 import com.avantica.proa.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,24 @@ import java.util.List;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
 
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
     public User save(User user){
         return userRepository.save(user);
+    }
+
+    public User saveFBUser(User user) throws Exception {
+        boolean existsToken = new FBTokenUtils().checkFBToken(user.getFb_token());
+
+        if(existsToken) return userRepository.save(user);
+
+        return null;
     }
 
     @Override
