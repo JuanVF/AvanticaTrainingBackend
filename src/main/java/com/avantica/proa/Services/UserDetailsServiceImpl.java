@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         if(existsToken) return userRepository.save(user);
 
-        return null;
+        throw new Exception("Expected a real FB Token");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),buildGrantedAuthority(user.getRole()));
     }
 
-    public List<GrantedAuthority> buildGrantedAuthority(byte rol){
+    private List<GrantedAuthority> buildGrantedAuthority(byte rol){
         String[] roles = {"READER","USER","ADMINISTRATOR"};
         List<GrantedAuthority> auths = new ArrayList<>();
 

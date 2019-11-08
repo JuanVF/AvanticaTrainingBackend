@@ -36,7 +36,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         InputStream body = request.getInputStream();
 
         UserModelResponse user = new ObjectMapper().readValue(body,UserModelResponse.class);
-        boolean existsToken = false;
+        boolean existsToken;
         try {
             existsToken = tokenUtils.checkFBToken(user.getFBToken());
 

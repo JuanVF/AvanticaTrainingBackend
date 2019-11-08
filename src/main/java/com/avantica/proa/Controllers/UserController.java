@@ -20,9 +20,6 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private FBTokenUtils tokenUtils;
-
     @PostMapping("/signup")
     ResponseEntity<User> save(@RequestBody User user){
         User verifier = userDetailsServiceImpl.findByEmail(user.getEmail());
@@ -43,11 +40,13 @@ public class UserController {
             String generatedPass = FB_USER_TOKEN;
             user.setPassword(bCryptPasswordEncoder.encode(generatedPass));
 
-            User userRes = userDetailsServiceImpl.saveFBUser(user);
-
-            if(userRes != null){
+            try {
+                User userRes = userDetailsServiceImpl.saveFBUser(user);
                 userRes.setPassword("");
+
                 return ResponseEntity.ok().body(userRes);
+            }catch (Exception e){
+                return ResponseEntity.status(406).build();
             }
 
         }
