@@ -48,7 +48,7 @@ The purpose of this is to learn how to make projects with React + Spring Boot.
 
 The challenges are:
 
-**Backend:   **
+**Backend:**
 
 - The respectives Model for User, Topic and Resources.
 - The respectives REST Controller to handle the URL's
