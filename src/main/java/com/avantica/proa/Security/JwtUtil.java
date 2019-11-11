@@ -17,7 +17,7 @@ import static java.util.Collections.emptyList;
 
 public class JwtUtil {
 
-    static void addAuthentication(HttpServletResponse res,String email) throws IOException {
+    public static void addAuthentication(HttpServletResponse res,String email) throws IOException {
         String token = Jwts.builder()
                 .setSubject(email)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
@@ -31,7 +31,7 @@ public class JwtUtil {
         );
     }
 
-    static Authentication getAuthentication(HttpServletRequest req){
+    public static Authentication getAuthentication(HttpServletRequest req){
         String token = req.getHeader(AUTHORIZATION_HEADER);
 
         if(token != null){

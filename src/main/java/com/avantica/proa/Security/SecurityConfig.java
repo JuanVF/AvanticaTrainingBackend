@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/signup").permitAll()
                 .antMatchers(HttpMethod.POST,"/fb/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/fb/signup").permitAll()
-                .antMatchers(HttpMethod.GET,"/resource").permitAll()
+                .antMatchers(HttpMethod.GET,"/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new LoginFilter("/login",authenticationManager())

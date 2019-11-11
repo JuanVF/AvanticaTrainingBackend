@@ -21,20 +21,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email);
-    }
-
     public User save(User user){
         return userRepository.save(user);
     }
 
-    public User saveFBUser(User user) throws Exception {
-        boolean existsToken = new FBTokenUtils().checkFBToken(user.getFb_token());
-
-        if(existsToken) return userRepository.save(user);
-
-        throw new Exception("Expected a real FB Token");
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 
     @Override

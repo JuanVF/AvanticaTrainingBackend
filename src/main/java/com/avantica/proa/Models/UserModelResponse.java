@@ -1,4 +1,4 @@
-package com.avantica.proa.Security;
+package com.avantica.proa.Models;
 
 public class UserModelResponse {
     private String email;
