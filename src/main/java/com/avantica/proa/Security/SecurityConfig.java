@@ -2,6 +2,7 @@ package com.avantica.proa.Security;
 
 import com.avantica.proa.FBTokenUtils;
 import com.avantica.proa.Services.UserDetailsServiceImpl;
+import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/signup").permitAll()
                 .antMatchers(HttpMethod.POST,"/fb/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/fb/signup").permitAll()
-                .antMatchers(HttpMethod.GET,"/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/resource").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new LoginFilter("/login",authenticationManager())

@@ -1,7 +1,6 @@
 package com.avantica.proa.Security;
 
 
-import com.avantica.proa.FBTokenUtils;
 import com.avantica.proa.Models.UserModelResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +19,6 @@ import java.io.InputStream;
 import java.util.Collections;
 
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
-    private FBTokenUtils tokenUtils = new FBTokenUtils();
 
     public LoginFilter(String url, AuthenticationManager authManager) {
         super(new AntPathRequestMatcher(url));

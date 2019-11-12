@@ -13,15 +13,15 @@ public class FBTokenUtils {
     private final OkHttpClient okHttpClient = new OkHttpClient();
 
     public boolean checkFBToken(String token) throws Exception{
-        Request request = new Request.Builder()
-                .url("https://graph.facebook.com/me?access_token="+token).build();
+        String requestURL = "https://graph.facebook.com/me?access_token="+token;
+        Request request = new Request.Builder().url(requestURL).build();
         try{
             Response response = okHttpClient.newCall(request).execute();
             if(!response.isSuccessful()) throw new IOException("Unexpected code "+response);
 
             Gson gson = new Gson();
-            FBTokenModel tokenModel = gson.fromJson(response.body().string(),FBTokenModel.class);
 
+            FBTokenModel tokenModel = gson.fromJson(response.body().string(),FBTokenModel.class);
             return (tokenModel.getId() != 0 && tokenModel.getName() != null);
 
         }catch (Exception e){
