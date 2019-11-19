@@ -5,5 +5,5 @@ public class SecurityConstants {
     public final static String AUTHORIZATION_HEADER = "Authorization";
     public final static String TOKEN_PREFIX = "Bearer ";
     public final static long EXPIRATION_TIME = 864000000;
-    public final static long EXPIRATION_TIME_FOR_TEST = 15000;
+    //public final static long EXPIRATION_TIME = 999999999; //This is for test
 }

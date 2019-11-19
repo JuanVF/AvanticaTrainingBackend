@@ -3,25 +3,26 @@ package com.avantica.proa.Models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name="email",nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="role")
+    @Column(name = "role")
     private byte role;
 
-    public User() { }
+    public User() {
+    }
 
     public User(String name, String email, String password, byte role) {
         this.name = name;

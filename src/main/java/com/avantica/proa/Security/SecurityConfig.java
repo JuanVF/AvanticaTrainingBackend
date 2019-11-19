@@ -2,7 +2,6 @@ package com.avantica.proa.Security;
 
 import com.avantica.proa.FBTokenUtils;
 import com.avantica.proa.Services.UserDetailsServiceImpl;
-import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,34 +24,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public FBTokenUtils fbTokenUtils(){
+    public FBTokenUtils fbTokenUtils() {
         return new FBTokenUtils();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/signup").permitAll()
-                .antMatchers(HttpMethod.POST,"/fb/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/fb/signup").permitAll()
-                .antMatchers(HttpMethod.GET,"/resource").permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/fb/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/fb/signup").permitAll()
+                .antMatchers(HttpMethod.GET, "/resource").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new LoginFilter("/login",authenticationManager())
-                        ,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new LoginFilter("/login", authenticationManager())
+                        , UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtFilter()
-                        ,UsernamePasswordAuthenticationFilter.class);
+                        , UsernamePasswordAuthenticationFilter.class);
 
     }
 

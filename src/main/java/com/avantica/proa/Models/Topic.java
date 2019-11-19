@@ -1,10 +1,12 @@
 package com.avantica.proa.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="topic")
+@Table(name = "topic")
 public class Topic {
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long topic_id;
@@ -12,7 +14,8 @@ public class Topic {
     @Column
     private String name;
 
-    public Topic() {}
+    public Topic() {
+    }
 
     public Topic(String name) {
         this.name = name;

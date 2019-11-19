@@ -28,16 +28,16 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response)
-                                                throws AuthenticationException, IOException {
+            throws AuthenticationException, IOException {
 
         InputStream body = request.getInputStream();
 
-        UserModelResponse user = new ObjectMapper().readValue(body,UserModelResponse.class);
+        UserModelResponse user = new ObjectMapper().readValue(body, UserModelResponse.class);
 
         return onEmailPasswordAuthentication(user);
     }
-    
-    private Authentication onEmailPasswordAuthentication(UserModelResponse user){
+
+    private Authentication onEmailPasswordAuthentication(UserModelResponse user) {
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getEmail(),
@@ -51,7 +51,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth)
-                                            throws IOException, ServletException{
-        JwtUtil.addAuthentication(res,auth.getName());
+            throws IOException, ServletException {
+        JwtUtil.addAuthentication(res, auth.getName());
     }
 }

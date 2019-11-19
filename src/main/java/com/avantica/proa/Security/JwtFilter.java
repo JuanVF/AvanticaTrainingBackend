@@ -17,12 +17,12 @@ public class JwtFilter extends GenericFilterBean {
     public void doFilter(ServletRequest req,
                          ServletResponse res,
                          FilterChain chain)
-                        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         Authentication auth = JwtUtil.getAuthentication((HttpServletRequest) req);
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        chain.doFilter(req,res);
+        chain.doFilter(req, res);
     }
 }

@@ -13,27 +13,27 @@ public class TopicServiceImpl implements TopicService {
     private TopicRepository topicRepository;
 
     @Override
-    public Topic save(Topic topic){
+    public Topic save(Topic topic) {
         return topicRepository.save(topic);
     }
 
     @Override
-    public List<Topic> findAll(){
+    public List<Topic> findAll() {
         return topicRepository.findAll();
     }
 
     @Override
-    public Topic findById(long id) throws Exception{
+    public Topic findById(long id) throws Exception {
         return topicRepository.findById(id).orElseThrow(Exception::new);
     }
 
     @Override
-    public Topic update(Topic topic){
+    public Topic update(Topic topic) {
         return topicRepository.save(topic);
     }
 
     @Override
-    public void delete(long id) throws Exception{
+    public void delete(long id) throws Exception {
         topicRepository.deleteById(id);
     }
 }

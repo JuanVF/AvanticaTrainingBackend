@@ -13,27 +13,27 @@ public class ResourceServiceImpl implements ResourceService {
     private ResourceRepository resourceRepository;
 
     @Override
-    public Resource save(Resource resource){
+    public Resource save(Resource resource) {
         return resourceRepository.save(resource);
     }
 
     @Override
-    public List<Resource> findAll(){
+    public List<Resource> findAll() {
         return resourceRepository.findAll();
     }
 
     @Override
-    public Resource findById(long id) throws Exception{
+    public Resource findById(long id) throws Exception {
         return resourceRepository.findById(id).orElseThrow(Exception::new);
     }
 
     @Override
-    public Resource update(Resource resource){
+    public Resource update(Resource resource) {
         return resourceRepository.save(resource);
     }
 
     @Override
-    public void delete(long id) throws Exception{
+    public void delete(long id) throws Exception {
         resourceRepository.deleteById(id);
     }
 }

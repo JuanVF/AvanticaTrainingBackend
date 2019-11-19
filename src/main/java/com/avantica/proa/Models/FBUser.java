@@ -3,19 +3,19 @@ package com.avantica.proa.Models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="fbuser")
+@Table(name = "fbuser")
 public class FBUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="fbtoken")
+    @Column(name = "fbtoken")
     private String fbtoken;
 
     public FBUser() {

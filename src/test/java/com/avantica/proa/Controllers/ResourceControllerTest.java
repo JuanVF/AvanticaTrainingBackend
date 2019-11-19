@@ -1,7 +1,5 @@
 package com.avantica.proa.Controllers;
 
-import static org.junit.Assert.*;
-
 import com.avantica.proa.Models.Resource;
 import com.avantica.proa.Models.Topic;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,15 +30,15 @@ class ResourceControllerTest {
     }
 
     @Test
-    public void verify_find_by_id_can_handle_no_existing_id(){
+    public void verify_find_by_id_can_handle_no_existing_id() {
 
-        Assertions.assertThrows(Exception.class, ()->{
-           resourceController.findById(45445456);
+        Assertions.assertThrows(Exception.class, () -> {
+            resourceController.findById(45445456);
         });
     }
 
     @Test
-    public void verify_resource_controller_can_find_all_resources(){
+    public void verify_resource_controller_can_find_all_resources() {
         ResponseEntity<List<Resource>> responseEntity = resourceController.findAll();
 
         boolean isLengthHigherThanZero = responseEntity.getBody().size() > 0;
@@ -46,7 +47,7 @@ class ResourceControllerTest {
     }
 
     @Test
-    public void verify_resource_controller_can_save_users(){
+    public void verify_resource_controller_can_save_users() {
         Resource resource = new Resource();
         Topic topic = new Topic();
 
@@ -79,19 +80,19 @@ class ResourceControllerTest {
     }
 
     @Test
-    public void verify_resource_controller_can_delete_users() throws Exception{
+    public void verify_resource_controller_can_delete_users() throws Exception {
         List<Resource> resourceList = resourceController.findAll().getBody();
         int initial_length = resourceList.size();
 
-        long lastId = resourceList.get(initial_length-1).getResource_id();
+        long lastId = resourceList.get(initial_length - 1).getResource_id();
 
         HttpStatus status = resourceController.delete(lastId).getStatusCode();
 
-        assertEquals(HttpStatus.OK,status);
+        assertEquals(HttpStatus.OK, status);
     }
 
     @Test
-    public void verify_resource_controller_can_find_relations_that_does_not_exists(){
+    public void verify_resource_controller_can_find_relations_that_does_not_exists() {
         Topic topicToFind = new Topic();
         topicToFind.setTopic_id(45454545);
 

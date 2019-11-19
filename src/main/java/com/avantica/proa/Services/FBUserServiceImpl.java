@@ -18,22 +18,22 @@ public class FBUserServiceImpl implements FBUserService {
     private FBTokenUtils fbTokenUtils;
 
     @Override
-    public FBUser findByEmail(String email){
+    public FBUser findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public void loginWithFB(HttpServletResponse res, FBUser fbUser){
-        try{
+    public void loginWithFB(HttpServletResponse res, FBUser fbUser) {
+        try {
             FBUser resultUser = findByEmail(fbUser.getEmail());
             boolean isAValidToken = fbTokenUtils.checkFBToken(fbUser.getFbtoken());
-            if(resultUser != null && isAValidToken){
+            if (resultUser != null && isAValidToken) {
                 JwtUtil.addAuthentication(res, resultUser.getEmail());
                 res.setStatus(200);
-            }else{
+            } else {
                 res.setStatus(406);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             res.setStatus(406);
         }
     }
@@ -42,14 +42,19 @@ public class FBUserServiceImpl implements FBUserService {
     public FBUser saveFBUser(FBUser user) throws Exception {
         FBUser verifier = findByEmail(user.getEmail());
 
-        if(verifier == null){
+        if (verifier == null) {
             boolean existsToken = new FBTokenUtils().checkFBToken(user.getFbtoken());
 
-            if(existsToken) return userRepository.save(user);
+            if (existsToken) return userRepository.save(user);
 
             throw new Exception("Expected a real FB Token");
         }
 
         return null;
+    }
+
+    @Override
+    public void deleteFBUser(String email) throws Exception{
+        userRepository.deleteByEmail(email);
     }
 }

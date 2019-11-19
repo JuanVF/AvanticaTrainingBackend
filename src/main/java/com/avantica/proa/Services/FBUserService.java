@@ -10,4 +10,6 @@ public interface FBUserService {
     void loginWithFB(HttpServletResponse res, FBUser fbUser);
 
     FBUser saveFBUser(FBUser user) throws Exception;
+
+    void deleteFBUser(String email) throws Exception;
 }

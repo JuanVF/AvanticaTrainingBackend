@@ -1,22 +1,26 @@
 package com.avantica.proa.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="resource")
+@Table(name = "resource")
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long resource_id;
 
+    @NotNull
     @Column
     private String description;
 
+    @NotNull
     @Column
     private String url;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name="topic_id")
+    @JoinColumn(name = "topic_id")
     private Topic topic;
 
     public Resource() {

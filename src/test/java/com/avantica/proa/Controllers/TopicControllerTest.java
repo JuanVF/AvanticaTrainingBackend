@@ -1,7 +1,5 @@
 package com.avantica.proa.Controllers;
 
-import static org.junit.Assert.*;
-
 import com.avantica.proa.Models.Topic;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class TopicControllerTest {
@@ -21,24 +21,24 @@ class TopicControllerTest {
     private TopicController topicController;
 
     @Test
-    public void verify_topic_controller_can_find_all_topics(){
+    public void verify_topic_controller_can_find_all_topics() {
         List<Topic> topicList = topicController.findAll().getBody();
         List<Topic> checker = new ArrayList<>();
 
         String className = topicList.getClass().getSimpleName();
 
-        assertEquals(checker.getClass().getSimpleName(),className);
+        assertEquals(checker.getClass().getSimpleName(), className);
     }
 
     @Test
     public void verify_can_find_one_topic() throws Exception {
         Topic resultTopic = topicController.findById(1).getBody();
 
-        assertEquals("Bootstrap",resultTopic.getName());
+        assertEquals("Bootstrap", resultTopic.getName());
     }
 
     @Test
-    public void verify_topic_resource_can_save_topics(){
+    public void verify_topic_resource_can_save_topics() {
         Topic topic = new Topic();
 
         topic.setName("GraphQL");
@@ -49,7 +49,7 @@ class TopicControllerTest {
     }
 
     @Test
-    public void verify_topic_resource_can_update_topics(){
+    public void verify_topic_resource_can_update_topics() {
         Topic topic = new Topic();
 
         topic.setName("PHP");
@@ -63,7 +63,7 @@ class TopicControllerTest {
     @Test
     public void verify_topic_resource_can_delete() throws Exception {
         List<Topic> topicList = topicController.findAll().getBody();
-        long lastID = topicList.get(topicList.size()-1).getTopic_id();
+        long lastID = topicList.get(topicList.size() - 1).getTopic_id();
 
         HttpStatus status = topicController.delete(lastID).getStatusCode();
 
