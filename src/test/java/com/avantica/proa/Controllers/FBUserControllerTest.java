@@ -1,7 +1,7 @@
 package com.avantica.proa.Controllers;
 
 import com.avantica.proa.Models.FBUser;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,25 +17,22 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class FBUserControllerTest {
 
     @Autowired
     private FBUserController fbUserController;
 
-    /**
-     * To PASS the test please delete this user from the table before inserting in
-     * because it will try to insert a duplicate user that is the second test
-     * "verify_fbcontroller_can_handle_duplicates"
-     **/
     @Test
+    @Order(1)
     public void verify_fbcontroller_can_save_users() throws Exception {
         FBUser fbUser = new FBUser();
 
         fbUser.setName("Madison Controller Tester");
         fbUser.setEmail("madison_iyrguwu_tester@tfbnw.net");
-        fbUser.setFbtoken("EAAlVXZAWbEg0BALp1vETZCiYGnI6wdokIJgrYpgrvh7dOD1F1Oj7ch6x0yZAMIzPWh" +
-                "G5BtyM01hzumlCZCSzzUkZBykMIMC3lWZB9SXThXNYBmWM1DPKeEXDpRa2HRvY0xsJipsCq4I6aVZ" +
-                "CF2lSjK8ZCbhE4OXuHd4SZBDz7X81ZBQzr8Rc9OfNtRVKT8ZCYp4GrzXbyXBGrgqEgZDZD");
+        fbUser.setFbtoken("EAAlVXZAWbEg0BAM64g3l9rCgD2KilWIRSeNH8533r3r8JwUMfZBp0YG2GgW" +
+                "8X8NINw5PZAbAkNgipUxqt6h7iSoAPBWBBcMFB94poCqVrgGfDOB2nLJ8nxdot4o9AiDck" +
+                "9qxQzk8xjiGiDHyFS9njRzDv0hZAZAhqIIzPDkckJL9ActjgGqX0");
 
         ResponseEntity response = fbUserController.saveFBUser(fbUser);
         HttpStatus status = HttpStatus.OK;
@@ -44,14 +41,15 @@ class FBUserControllerTest {
     }
 
     @Test
+    @Order(2)
     public void verify_fbcontroller_can_handle_duplicates() throws Exception {
         FBUser fbUser = new FBUser();
 
         fbUser.setName("Madison Controller Tester");
         fbUser.setEmail("madison_iyrguwu_tester@tfbnw.net");
-        fbUser.setFbtoken("EAAlVXZAWbEg0BALp1vETZCiYGnI6wdokIJgrYpgrvh7dOD1F1Oj7ch6x0yZAMIzPWh" +
-                "G5BtyM01hzumlCZCSzzUkZBykMIMC3lWZB9SXThXNYBmWM1DPKeEXDpRa2HRvY0xsJipsCq4I6aVZ" +
-                "CF2lSjK8ZCbhE4OXuHd4SZBDz7X81ZBQzr8Rc9OfNtRVKT8ZCYp4GrzXbyXBGrgqEgZDZD");
+        fbUser.setFbtoken("EAAlVXZAWbEg0BAM64g3l9rCgD2KilWIRSeNH8533r3r8JwUMfZBp0YG2GgW8X8N" +
+                "INw5PZAbAkNgipUxqt6h7iSoAPBWBBcMFB94poCqVrgGfDOB2nLJ8nxdot4o9AiDck9qxQzk8x" +
+                "jiGiDHyFS9njRzDv0hZAZAhqIIzPDkckJL9ActjgGqX0");
 
         ResponseEntity response = fbUserController.saveFBUser(fbUser);
         HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
@@ -60,6 +58,7 @@ class FBUserControllerTest {
     }
 
     @Test
+    @Order(3)
     public void verify_fbcontroller_can_handle_a_non_acceptable_body() throws Exception {
         FBUser nonAcceptableFBUser = new FBUser();
 
@@ -74,6 +73,7 @@ class FBUserControllerTest {
     }
 
     @Test
+    @Order(4)
     public void verify_fbcontroller_login_can_handle_a_false_token() throws IOException {
         MockHttpServletResponse httpServletResponse = new MockHttpServletResponse();
         MockHttpServletRequest httpServletRequest = new MockHttpServletRequest();
@@ -94,6 +94,7 @@ class FBUserControllerTest {
     }
 
     @Test
+    @Order(5)
     public void verify_fbcontroller_can_success_a_login() throws IOException {
         MockHttpServletResponse httpServletResponse = new MockHttpServletResponse();
         MockHttpServletRequest httpServletRequest = new MockHttpServletRequest();
@@ -102,10 +103,9 @@ class FBUserControllerTest {
 
         fbUser.setName("Madison Controller Tester");
         fbUser.setEmail("madison_iyrguwu_tester@tfbnw.net");
-        fbUser.setFbtoken("EAAlVXZAWbEg0BAIgaCxjrS4tlO4rJ4tCQPEGQl1alk9xdvBYq" +
-                "6bBotsK95PbRZCVkrUIZCrOm8axIntfsKeKMRdjWOCTz2WPd414Ugj4tZAU9" +
-                "xqFcdMBD37ctqezXzvjlMZAzIt2976FdvnjNRdupR18V0JRgRACESHRrjMSZ" +
-                "Alt72ZC0wOsv4iamzoWUhfwoR13VnLRXgRmQZDZD");
+        fbUser.setFbtoken("EAAlVXZAWbEg0BAM64g3l9rCgD2KilWIRSeNH8533r3r8JwUMfZBp0YG2GgW8X8NINw5PZ" +
+                "AbAkNgipUxqt6h7iSoAPBWBBcMFB94poCqVrgGfDOB2nLJ8nxdot4o9AiDck9qxQzk8xjiGiDHyFS9nj" +
+                "RzDv0hZAZAhqIIzPDkckJL9ActjgGqX0");
 
         fbUserController.loginWithFB(httpServletRequest, httpServletResponse, fbUser);
 
@@ -116,6 +116,7 @@ class FBUserControllerTest {
     }
 
     @Test
+    @Order(6)
     public void verify_fbcontroller_login_can_handle_false_user() throws IOException {
         MockHttpServletResponse httpServletResponse = new MockHttpServletResponse();
         MockHttpServletRequest httpServletRequest = new MockHttpServletRequest();
@@ -133,5 +134,17 @@ class FBUserControllerTest {
         int resultStatus = httpServletResponse.getStatus();
 
         assertEquals(status, resultStatus);
+    }
+
+    @Test
+    @Order(7)
+    public void verify_fbcontroller_cand_delete_users() throws Exception {
+        fbUserController.delete("madison_iyrguwu_tester@tfbnw.net");
+    }
+
+    @Test
+    @Order(8)
+    public void verify_if_it_can_handle_fake_users() throws Exception {
+        fbUserController.delete("fake@jhon.net");
     }
 }

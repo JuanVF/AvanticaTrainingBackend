@@ -17,9 +17,9 @@ class JwtUtilTest {
     @Test
     public void verify_JwtUtil_can_get_authentication_token_from_headers() {
         MockHttpServletRequest httpServletRequest = new MockHttpServletRequest();
-        httpServletRequest.addHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.ey" +
-                "JzdWIiOiJqdWFudmZsZXRlc0BnbWFpbC5jb20iLCJleHAiOjE1NzQxMDQ4OTh9.WAYLcn6zM4BgxA-VGyrr" +
-                "xWrvQ1Xb-JOxjSKpr8NPBpiHveiIjhEsGJI0m8bhUgtzBjop-926ERoI5h8ULeeFAQ");
+        httpServletRequest.addHeader("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWFud" +
+                "mZsZXRlc0BnbWFpbC5jb20iLCJleHAiOjE1NzUxNDYxNzB9.dh3wfj6ORAMLra1AAPBz8Cbboj-hg0AMkVVuATKYLcyMzk1de" +
+                "Qi3xn64khxkeq6eWm-CxCIekFN-2gnBu61eMw");
 
         Authentication authentication = JwtUtil.getAuthentication(httpServletRequest);
 

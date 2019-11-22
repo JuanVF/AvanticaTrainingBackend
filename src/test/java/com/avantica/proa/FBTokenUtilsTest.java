@@ -27,7 +27,7 @@ class FBTokenUtilsTest {
 
     @Test
     public void verify_this_class_can_detect_a_authentic_token() throws Exception {
-        String FBToken = "EAAlVXZAWbEg0BAPNQVuZAgp6LzaXtyuY6Y1NZCufI5rIMHZBRVgIChffjiPVPf6EKzxD793nqhDOL4gbeiUKVZC6ZBLQDyZCYX2RQBaLqZCLJR46Q2TE1tvB6XnrK1wBFNzZAZCA2jZCTmZBP1tLAsIxV1B7KrZCijmrFpt81oLWT9mbWGKORbtrraFIGlaQdBD4rcr6PUewFKY1I3qTS5s2qCkZAd";
+        String FBToken = "EAAlVXZAWbEg0BAFOUBpgvbRup7Nm1z5CyHi8Q6EhxiZB2bxFVyhAK16AyXVnycFcQNInJ1BUmd4XZA1ZBIYx5cZAekwxnt2Juc1zSjP470RrPh66gdVdjq1ZCotZCbgpUwOc5GkbIgUbL4I8I8DAZACizZCSrnNlIoCAuQY6KYzhDmq6SBFT4nPzm";
 
         boolean isAuthentic = fbTokenUtils.checkFBToken(FBToken);
 

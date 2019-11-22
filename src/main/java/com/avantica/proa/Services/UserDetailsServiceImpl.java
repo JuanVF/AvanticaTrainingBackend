@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public void deleteByEmail(String email) throws Exception{
+    public void deleteByEmail(String email) throws Exception {
         userRepository.deleteByEmail(email);
     }
 

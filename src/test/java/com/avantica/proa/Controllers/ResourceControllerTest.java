@@ -2,8 +2,8 @@ package com.avantica.proa.Controllers;
 
 import com.avantica.proa.Models.Resource;
 import com.avantica.proa.Models.Topic;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import com.avantica.proa.Services.TopicService;
+import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,40 +18,33 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ResourceControllerTest {
     @Autowired
     private ResourceController resourceController;
 
-    @Test
-    public void verify_resource_controller_can_find_by_id() throws Exception {
-        ResponseEntity<Resource> responseEntity = resourceController.findById(1);
+    @Autowired
+    private TopicService topicService;
 
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    public long get_last_topic_id() {
+        List<Topic> result = topicService.findAll();
+
+        return result.get(result.size() - 1).getTopic_id();
+    }
+
+    public long get_inserted_resource_id() {
+        List<Resource> result = resourceController.findAll().getBody();
+
+        return result.get(result.size() - 1).getResource_id();
     }
 
     @Test
-    public void verify_find_by_id_can_handle_no_existing_id() {
-
-        Assertions.assertThrows(Exception.class, () -> {
-            resourceController.findById(45445456);
-        });
-    }
-
-    @Test
-    public void verify_resource_controller_can_find_all_resources() {
-        ResponseEntity<List<Resource>> responseEntity = resourceController.findAll();
-
-        boolean isLengthHigherThanZero = responseEntity.getBody().size() > 0;
-
-        assertTrue(isLengthHigherThanZero);
-    }
-
-    @Test
+    @Order(1)
     public void verify_resource_controller_can_save_users() {
         Resource resource = new Resource();
         Topic topic = new Topic();
 
-        topic.setTopic_id(2);
+        topic.setTopic_id(get_last_topic_id());
 
         resource.setTopic(topic);
         resource.setDescription("Node.js documentation");
@@ -63,15 +56,43 @@ class ResourceControllerTest {
     }
 
     @Test
+    @Order(2)
+    public void verify_resource_controller_can_find_by_id() throws Exception {
+        ResponseEntity<Resource> responseEntity = resourceController.findById(get_inserted_resource_id());
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
+    @Test
+    @Order(3)
+    public void verify_find_by_id_can_handle_no_existing_id() {
+
+        Assertions.assertThrows(Exception.class, () -> {
+            resourceController.findById(0);
+        });
+    }
+
+    @Test
+    @Order(4)
+    public void verify_resource_controller_can_find_all_resources() {
+        ResponseEntity<List<Resource>> responseEntity = resourceController.findAll();
+
+        boolean isLengthHigherThanZero = responseEntity.getBody().size() > 0;
+
+        assertTrue(isLengthHigherThanZero);
+    }
+
+    @Test
+    @Order(5)
     public void verify_resource_controller_can_update_users() throws Exception {
         Resource updatedResource = new Resource();
         Topic topic = new Topic();
 
-        topic.setTopic_id(2);
+        topic.setTopic_id(get_last_topic_id());
 
         updatedResource.setUrl("https://platzi.com/clases/nodejs/");
         updatedResource.setDescription("Platzi node.js tutorial");
-        updatedResource.setResource_id(3);
+        updatedResource.setResource_id(get_inserted_resource_id());
         updatedResource.setTopic(topic);
 
         HttpStatus status = resourceController.update(updatedResource).getStatusCode();
@@ -80,21 +101,18 @@ class ResourceControllerTest {
     }
 
     @Test
+    @Order(6)
     public void verify_resource_controller_can_delete_users() throws Exception {
-        List<Resource> resourceList = resourceController.findAll().getBody();
-        int initial_length = resourceList.size();
-
-        long lastId = resourceList.get(initial_length - 1).getResource_id();
-
-        HttpStatus status = resourceController.delete(lastId).getStatusCode();
+        HttpStatus status = resourceController.delete(get_inserted_resource_id()).getStatusCode();
 
         assertEquals(HttpStatus.OK, status);
     }
 
     @Test
+    @Order(7)
     public void verify_resource_controller_can_find_relations_that_does_not_exists() {
         Topic topicToFind = new Topic();
-        topicToFind.setTopic_id(45454545);
+        topicToFind.setTopic_id(64564);
 
         List<Resource> resourcesList = resourceController.findByTopicId(topicToFind).getBody();
         int length = resourcesList.size();

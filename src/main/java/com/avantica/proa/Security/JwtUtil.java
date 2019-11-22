@@ -32,6 +32,7 @@ public class JwtUtil {
 
     public static Authentication getAuthentication(HttpServletRequest req) {
         String token = req.getHeader(AUTHORIZATION_HEADER);
+
         if (token != null) {
             boolean isTokenExpired = verifyExpiredToken(token);
             if (isTokenExpired) return null;
